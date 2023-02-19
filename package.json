@@ -1,0 +1,28 @@
+{
+  "name": "station-groups",
+  "version": "0.0.0-beta",
+  "description": "Manages user groups",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/b035/station-groups.git"
+  },
+  "keywords": [
+    "station",
+    "stations",
+    "project"
+  ],
+  "author": "b035",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/b035/station-groups/issues"
+  },
+  "homepage": "https://github.com/b035/station-groups#readme",
+  "dependencies": {
+    "@the-stations-project/sdk": "^0.2.2-beta",
+    "@types/node": "^18.14.0"
+  }
+}
