@@ -6,6 +6,7 @@ import * as SDK from "@the-stations-project/sdk";
 async function main(subcommand: string, args: string[]) {
 	switch (subcommand) {
 		case "create": return await create(args[0]);
+		case "disband": return await disband(args[0]);
 		default: return new SDK.Result(SDK.ExitCodes.ErrNoCommand, undefined);
 	}
 }
@@ -19,6 +20,19 @@ async function create(name: string) {
 
 	/* create directory */
 	(await SDK.Registry.mkdir(path)).or_log_error()
+		.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown));
+
+	return result;
+}
+
+async function disband(name: string) {
+	const result = new SDK.Result(SDK.ExitCodes.Ok, undefined);
+
+	/* get path */
+	const path = SDK.Registry.join_paths("groups", name);
+
+	/* delete directory */
+	(await SDK.Registry.delete(path)).or_log_error()
 		.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown));
 
 	return result;
