@@ -1,8 +1,12 @@
 {
-  "name": "station-groups",
-  "version": "0.0.0-beta",
+  "name": "@the-stations-project/groups",
+  "version": "0.0.1-beta",
   "description": "Manages user groups",
-  "main": "index.js",
+  "main": "groups.js",
+  "bin": {
+	  "groups": "groups.js",
+	  "groups-init": "init.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
