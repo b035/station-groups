@@ -45,7 +45,7 @@ async function disband(group: string) {
 	return result;
 }
 
-async function mod_users(group: string, uname: string, action: string) {
+async function mod_users(action: string, group: string, uname: string) {
 	const result = new SDK.Result(SDK.ExitCodes.Ok, false);
 
 	/* safety */
