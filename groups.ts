@@ -7,6 +7,7 @@ async function main(subcommand: string, args: string[]) {
 	switch (subcommand) {
 		case "create": return await create(args[0]);
 		case "disband": return await disband(args[0]);
+		case "add_user": return await add_user(args[0], args[1]);
 		default: return new SDK.Result(SDK.ExitCodes.ErrNoCommand, undefined);
 	}
 }
@@ -14,6 +15,9 @@ async function main(subcommand: string, args: string[]) {
 /* SUB-FUNCTIONS */
 async function create(group: string) {
 	const result = new SDK.Result(SDK.ExitCodes.Ok, undefined);
+
+	/* safety */
+	if (arguments.length < 1) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
 
 	/* get path */
 	const path = SDK.Registry.join_paths("groups", group, "details");
@@ -28,6 +32,9 @@ async function create(group: string) {
 async function disband(group: string) {
 	const result = new SDK.Result(SDK.ExitCodes.Ok, undefined);
 
+	/* safety */
+	if (arguments.length < 1) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
+
 	/* get path */
 	const path = SDK.Registry.join_paths("groups", group);
 
@@ -40,6 +47,9 @@ async function disband(group: string) {
 
 async function add_user(group: string, uname: string) {
 	const result = new SDK.Result(SDK.ExitCodes.Ok, undefined);
+
+	/* safety */
+	if (arguments.length < 2) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
 
 	/* get path */
 	const path = SDK.Registry.join_paths("groups", group, uname);
