@@ -18,7 +18,7 @@ async function create(group: string) {
 	const result = new SDK.Result(SDK.ExitCodes.Ok, undefined);
 
 	/* safety */
-	if (arguments.length < 1) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
+	if (SDK.contains_undefined_arguments(arguments)) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
 
 	/* get path */
 	const path = SDK.Registry.join_paths("groups", group, "details/names");
@@ -34,7 +34,7 @@ async function disband(group: string) {
 	const result = new SDK.Result(SDK.ExitCodes.Ok, undefined);
 
 	/* safety */
-	if (arguments.length < 1) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
+	if (SDK.contains_undefined_arguments(arguments)) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
 
 	/* get path */
 	const path = SDK.Registry.join_paths("groups", group);
@@ -50,7 +50,7 @@ async function get_name(group: string, lang: string) {
 	const result = new SDK.Result(SDK.ExitCodes.Ok, group);
 
 	/* safety */
-	if (arguments.length < 2) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
+	if (SDK.contains_undefined_arguments(arguments)) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
 
 	/* get path */
 	const path = SDK.Registry.join_paths("groups", group, "details/names", lang);
@@ -66,7 +66,7 @@ async function mod_users(action: string, group: string, uname: string) {
 	const result = new SDK.Result(SDK.ExitCodes.Ok, false);
 
 	/* safety */
-	if (arguments.length < 3) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
+	if (SDK.contains_undefined_arguments(arguments)) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
 
 	/* get path */
 	const path = SDK.Registry.join_paths("groups", group, uname);
