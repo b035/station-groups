@@ -62,7 +62,7 @@ async function get_name(group: string, lang: string) {
 	return result;
 }
 
-async function mod_users(action: string, group: string, uname: string) {
+async function mod_users(group: string, action: string, uname: string) {
 	const result = new SDK.Result(SDK.ExitCodes.Ok, false);
 
 	/* safety */
