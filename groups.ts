@@ -16,7 +16,7 @@ async function create(group: string) {
 	const result = new SDK.Result(SDK.ExitCodes.Ok, undefined);
 
 	/* get path */
-	const path = SDK.Registry.join_paths("groups", group);
+	const path = SDK.Registry.join_paths("groups", group, "details");
 
 	/* create directory */
 	(await SDK.Registry.mkdir(path)).or_log_error()
