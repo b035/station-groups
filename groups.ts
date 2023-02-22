@@ -7,7 +7,7 @@ async function main(subcommand: string, args: string[]) {
 	switch (subcommand) {
 		case "create": return await create(args[0]);
 		case "disband": return await disband(args[0]);
-		case "add_user": return await add_user(args[0], args[1]);
+		case "mod_users": return await mod_users(args[0], args[1], args[2]);
 		default: return new SDK.Result(SDK.ExitCodes.ErrNoCommand, undefined);
 	}
 }
@@ -45,7 +45,7 @@ async function disband(group: string) {
 	return result;
 }
 
-async function add_user(group: string, uname: string) {
+async function mod_users(group: string, uname: string, action: string) {
 	const result = new SDK.Result(SDK.ExitCodes.Ok, undefined);
 
 	/* safety */
@@ -54,9 +54,18 @@ async function add_user(group: string, uname: string) {
 	/* get path */
 	const path = SDK.Registry.join_paths("groups", group, uname);
 
-	/* create user file */
-	(await SDK.Registry.write(path, "")).or_log_error()
-		.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown));
+	switch (action) {
+		case "add": {
+			(await SDK.Registry.write(path, "")).or_log_error()
+				.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown));
+			break;
+		}
+		case "remove": {
+			(await SDK.Registry.delete(path)).or_log_error()
+				.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown));
+		}
+		default: return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
+	}
 
 	return result;
 }
