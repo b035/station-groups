@@ -46,7 +46,7 @@ async function disband(group: string) {
 }
 
 async function mod_users(group: string, uname: string, action: string) {
-	const result = new SDK.Result(SDK.ExitCodes.Ok, undefined);
+	const result = new SDK.Result(SDK.ExitCodes.Ok, false);
 
 	/* safety */
 	if (arguments.length < 2) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
@@ -64,6 +64,12 @@ async function mod_users(group: string, uname: string, action: string) {
 			(await SDK.Registry.delete(path)).or_log_error()
 				.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown));
 			break;
+		}
+		case "check": {
+			(await SDK.Registry.test(path))
+				.ok(() => result.finalize_with_value(true))
+				.err(() => result.finalize_with_value(false));
+			break;	
 		}
 		default: return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
 	}
