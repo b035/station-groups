@@ -71,7 +71,7 @@ async function mod_users(action: string, group: string, uname: string) {
 				.err(() => result.finalize_with_value(false));
 			break;	
 		}
-		default: return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
+		default: return result.finalize_with_code(SDK.ExitCodes.ErrNoCommand);
 	}
 
 	return result;
