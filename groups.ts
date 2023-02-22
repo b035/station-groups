@@ -63,6 +63,7 @@ async function mod_users(group: string, uname: string, action: string) {
 		case "remove": {
 			(await SDK.Registry.delete(path)).or_log_error()
 				.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown));
+			break;
 		}
 		default: return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
 	}
