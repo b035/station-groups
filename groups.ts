@@ -49,7 +49,7 @@ async function mod_users(action: string, group: string, uname: string) {
 	const result = new SDK.Result(SDK.ExitCodes.Ok, false);
 
 	/* safety */
-	if (arguments.length < 2) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
+	if (arguments.length < 3) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
 
 	/* get path */
 	const path = SDK.Registry.join_paths("groups", group, uname);
