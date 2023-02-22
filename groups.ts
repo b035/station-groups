@@ -12,11 +12,11 @@ async function main(subcommand: string, args: string[]) {
 }
 
 /* SUB-FUNCTIONS */
-async function create(name: string) {
+async function create(group: string) {
 	const result = new SDK.Result(SDK.ExitCodes.Ok, undefined);
 
 	/* get path */
-	const path = SDK.Registry.join_paths("groups", name);
+	const path = SDK.Registry.join_paths("groups", group);
 
 	/* create directory */
 	(await SDK.Registry.mkdir(path)).or_log_error()
@@ -25,15 +25,28 @@ async function create(name: string) {
 	return result;
 }
 
-async function disband(name: string) {
+async function disband(group: string) {
 	const result = new SDK.Result(SDK.ExitCodes.Ok, undefined);
 
 	/* get path */
-	const path = SDK.Registry.join_paths("groups", name);
+	const path = SDK.Registry.join_paths("groups", group);
 
 	/* delete directory */
 	(await SDK.Registry.delete(path)).or_log_error()
 		.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown));
+
+	return result;
+}
+
+async function add_user(group: string, uname: string) {
+	const result = new SDK.Result(SDK.ExitCodes.Ok, undefined);
+
+	/* get path */
+	const path = SDK.Registry.join_paths("groups", group, uname);
+
+	/* create user file */
+	(await SDK.Registry.write(path, "")).or_log_error()
+		.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown);
 
 	return result;
 }
