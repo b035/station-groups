@@ -95,4 +95,4 @@ async function mod_users(action: string, group: string, uname: string) {
 	return result;
 }
 
-SDK.start_service(main, (result) => console.log(result.to_string()));
+SDK.start_module(main, (result) => console.log(result.to_string()));
