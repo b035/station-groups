@@ -46,7 +46,7 @@ async function add_user(group: string, uname: string) {
 
 	/* create user file */
 	(await SDK.Registry.write(path, "")).or_log_error()
-		.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown);
+		.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown));
 
 	return result;
 }
