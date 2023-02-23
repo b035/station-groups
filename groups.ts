@@ -9,6 +9,7 @@ async function main(subcommand: string, args: string[]) {
 		case "disband": return await disband(args[0]);
 		case "get_name": return await get_name(args[0], args[1]);
 		case "mod_users": return await mod_users(args[0], args[1], args[2]);
+		case "check": return await check(args[0], args[1]);
 		default: return new SDK.Result(SDK.ExitCodes.ErrNoCommand, undefined);
 	}
 }
@@ -100,6 +101,23 @@ async function mod_users(group: string, action: string, uname: string) {
 
 	/* log */
 	SDK.log(result.has_failed ? "ERROR" : "ACTIVITY", `Groups: modify "${group}" regarding user "${uname}" (${action}).`);
+
+	return result;
+}
+
+async function check(group: string, uname: string) {
+	const result = new SDK.Result(SDK.ExitCodes.Ok, false);
+
+	/* safety */
+	if (SDK.contains_undefined_arguments(arguments)) return result.finalize_with_code(SDK.ExitCodes.ErrMissingParameter);
+
+	/* get path */
+	const path = SDK.Registry.join_paths("groups", group, uname);
+
+	/* check if user file exists */
+	(await SDK.Registry.test(path)).or_log_error()
+		.ok(() => result.finalize_with_value(true))
+		.err(() => result.finalize_with_value(false));
 
 	return result;
 }
