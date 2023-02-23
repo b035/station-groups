@@ -28,7 +28,7 @@ async function create(group: string) {
 		.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown));
 
 	/* log */
-	SDK.log("ACTIVITY", `Groups: tried to create "${group}": ${result.code}.`);
+	SDK.log(result.has_failed ? "ERROR" : "ACTIVITY", `Groups: create "${group}".`);
 
 	return result;
 }
@@ -47,7 +47,7 @@ async function disband(group: string) {
 		.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown));
 
 	/* log */
-	SDK.log("ACTIVITY", `Groups: tried to disband "${group}": ${result.code}.`);
+	SDK.log(result.has_failed ? "ERROR" : "ACTIVITY", `Groups: disband "${group}".`);
 
 	return result;
 }
@@ -99,7 +99,7 @@ async function mod_users(group: string, action: string, uname: string) {
 	}
 
 	/* log */
-	SDK.log("ACTIVITY", `Groups: tried to modify "${group}" regarding use "${uname}" (${action}): ${result.code}.`);
+	SDK.log(result.has_failed ? "ERROR" : "ACTIVITY", `Groups: modify "${group}" regarding user "${uname}" (${action}).`);
 
 	return result;
 }
