@@ -27,6 +27,9 @@ async function create(group: string) {
 	(await SDK.Registry.mkdir(path)).or_log_error()
 		.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown));
 
+	/* log */
+	SDK.log("ACTIVITY", `Groups: tried to create "${group}": ${result.code}.`);
+
 	return result;
 }
 
@@ -42,6 +45,9 @@ async function disband(group: string) {
 	/* delete directory */
 	(await SDK.Registry.delete(path)).or_log_error()
 		.err(() => result.finalize_with_code(SDK.ExitCodes.ErrUnknown));
+
+	/* log */
+	SDK.log("ACTIVITY", `Groups: tried to disband "${group}": ${result.code}.`);
 
 	return result;
 }
@@ -91,6 +97,9 @@ async function mod_users(group: string, action: string, uname: string) {
 		}
 		default: return result.finalize_with_code(SDK.ExitCodes.ErrNoCommand);
 	}
+
+	/* log */
+	SDK.log("ACTIVITY", `Groups: tried to modify "${group}" regarding use "${uname}" (${action}): ${result.code}.`);
 
 	return result;
 }
