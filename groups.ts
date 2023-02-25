@@ -90,6 +90,9 @@ async function mod_users(group: string, action: string, uname: string) {
 			break;
 		}
 		case "check": {
+			//true if group is "all"
+			if (group == "all") return result.finalize_with_value(true);
+
 			(await SDK.Registry.test(path))
 				.ok(() => result.finalize_with_value(true))
 				.err(() => result.finalize_with_value(false));
